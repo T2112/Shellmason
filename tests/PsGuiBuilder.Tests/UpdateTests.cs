@@ -104,7 +104,7 @@ public class UpdateTests
             Directory.Delete(root, recursive: true);
         }
 
-        Assert.False(UpdateUrls.IsGitHub("http://github.com/T2112/ps-gui-builder/releases/download/v0.4.0/Shellmason-Setup-0.4.0.exe"));
+        Assert.False(UpdateUrls.IsGitHub("http://github.com/T2112/Shellmason/releases/download/v0.4.0/Shellmason-Setup-0.4.0.exe"));
         Assert.False(UpdateUrls.IsGitHub("https://example.com/Shellmason-Setup-0.4.0.exe"));
         Assert.Equal(new[] { "/VERYSILENT", "/SUPPRESSMSGBOXES", "/NORESTART", "/SP-", "/CLOSEAPPLICATIONS" }, UpdateInstaller.Arguments());
     }
@@ -132,12 +132,12 @@ public class UpdateTests
               , "assets": [
                   {
                     "name": "Shellmason-Setup-VERSION.exe",
-                    "browser_download_url": "https://github.com/T2112/ps-gui-builder/releases/download/vVERSION/Shellmason-Setup-VERSION.exe",
+                    "browser_download_url": "https://github.com/T2112/Shellmason/releases/download/vVERSION/Shellmason-Setup-VERSION.exe",
                     "size": SIZE
                   },
                   {
                     "name": "Shellmason-Setup-VERSION.exe.sha256",
-                    "browser_download_url": "https://github.com/T2112/ps-gui-builder/releases/download/vVERSION/Shellmason-Setup-VERSION.exe.sha256",
+                    "browser_download_url": "https://github.com/T2112/Shellmason/releases/download/vVERSION/Shellmason-Setup-VERSION.exe.sha256",
                     "size": 80
                   }
                 ]
@@ -148,7 +148,7 @@ public class UpdateTests
               "tag_name": "vVERSION",
               "draft": DRAFT,
               "prerelease": false,
-              "html_url": "https://github.com/T2112/ps-gui-builder/releases/tag/vVERSION",
+              "html_url": "https://github.com/T2112/Shellmason/releases/tag/vVERSION",
               "body": "Notes"
             """ + asset + "}")
             .Replace("VERSION", version, StringComparison.Ordinal)

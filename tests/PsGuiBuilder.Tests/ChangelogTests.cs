@@ -16,6 +16,23 @@ public class ChangelogTests
     public void History_sections_match_the_shipped_versions()
     {
         var changelog = ChangelogText();
+        var version = File.ReadAllText(Path.Combine(Path.GetDirectoryName(Repo.CommandTreePath())!, "VERSION")).Trim();
+        Assert.Equal("0.4.0", version);
+        var rename = Changelog.Section(changelog, version);
+        Assert.NotNull(rename);
+        Assert.Contains("Shellmason.exe", rename, StringComparison.Ordinal);
+        Assert.Contains("Shellmason-Setup-<version>.exe", rename, StringComparison.Ordinal);
+        Assert.Contains("%APPDATA%\\Shellmason", rename, StringComparison.Ordinal);
+        Assert.Contains("%APPDATA%\\PsGuiBuilder", rename, StringComparison.Ordinal);
+        Assert.Contains("https://github.com/T2112/Shellmason", rename, StringComparison.Ordinal);
+        Assert.DoesNotContain("ps-gui-builder", rename, StringComparison.OrdinalIgnoreCase);
+
+        var notes = Changelog.ReleaseNotes(changelog, version);
+        Assert.NotNull(notes);
+        Assert.EndsWith(Changelog.OwnershipNote, notes, StringComparison.Ordinal);
+        Assert.Contains("## 0.4.0", notes, StringComparison.Ordinal);
+        Assert.DoesNotContain("## 0.3.0", notes, StringComparison.Ordinal);
+
         var current = Changelog.Section(changelog, "0.3.0");
         var icon = Changelog.Section(changelog, "v0.2.0");
         var first = Changelog.Section(changelog, "0.1.0");

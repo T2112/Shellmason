@@ -9,7 +9,7 @@
     <TargetFramework>net8.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
     <RootNamespace>PsGuiBuilder</RootNamespace>
-    <AssemblyName>PsGuiBuilder</AssemblyName>
+    <AssemblyName>Shellmason</AssemblyName>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <ApplicationIcon>Assets\PsGuiBuilder.ico</ApplicationIcon>
     <Description>Shellmason. Personal side project by Thomas Schueler. Developed on personal time using personal equipment. Not related to any employment.</Description>

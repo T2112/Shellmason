@@ -17,7 +17,7 @@
 #define Copyright "Copyright (c) 2026 Thomas Schueler. Personal project, developed on personal time using personal equipment. Not related to any employment."
 
 [Setup]
-; AppId stays unchanged so this setup upgrades an existing PsGuiBuilder install.
+; AppId stays unchanged so this setup upgrades an existing install in place.
 AppId={{E4B7C2A1-9F30-4D6E-8A12-5C7B9E0D3F48}
 AppName={#AppName}
 AppVersion={#AppVersion}
@@ -31,6 +31,7 @@ InfoBeforeFile={#RepoRoot}\OWNERSHIP.md
 LicenseFile={#RepoRoot}\LICENSE
 SetupIconFile={#RepoRoot}\src\PsGuiBuilder\Assets\PsGuiBuilder.ico
 OutputDir={#RepoRoot}\artifacts
+; Shellmason 0.3.0 looks for Shellmason-Setup-<version>.exe. Keep this file name.
 OutputBaseFilename=Shellmason-Setup-{#AppVersion}
 Compression=lzma2
 SolidCompression=yes
@@ -39,7 +40,7 @@ ArchitecturesAllowed=x64
 ArchitecturesInstallIn64BitMode=x64
 PrivilegesRequired=admin
 UninstallDisplayName={#AppName}
-UninstallDisplayIcon={app}\PsGuiBuilder.exe
+UninstallDisplayIcon={app}\Shellmason.exe
 VersionInfoCompany={#Publisher}
 VersionInfoCopyright={#Copyright}
 VersionInfoDescription=Shellmason. Personal side project by Thomas Schueler. Not related to any employment.
@@ -47,6 +48,9 @@ VersionInfoProductName={#AppName}
 VersionInfoProductVersion={#AppVersion}
 VersionInfoVersion={#AppVersion}.0
 MinVersion=10.0
+; Do not relaunch the program. Setup is elevated, and the previous file was PsGuiBuilder.exe.
+CloseApplications=yes
+RestartApplications=no
 
 [Tasks]
 Name: desktopicon; Description: "Create a desktop shortcut"; GroupDescription: "Additional icons:"; Flags: unchecked
@@ -55,13 +59,18 @@ Name: desktopicon; Description: "Create a desktop shortcut"; GroupDescription: "
 Source: "{#PublishDir}\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs; Excludes: "*.pdb"
 
 [Icons]
-Name: "{group}\{#AppName}"; Filename: "{app}\PsGuiBuilder.exe"; IconFilename: "{app}\PsGuiBuilder.exe"
+Name: "{group}\{#AppName}"; Filename: "{app}\Shellmason.exe"; IconFilename: "{app}\Shellmason.exe"
 Name: "{group}\Uninstall {#AppName}"; Filename: "{uninstallexe}"
-Name: "{autodesktop}\{#AppName}"; Filename: "{app}\PsGuiBuilder.exe"; IconFilename: "{app}\PsGuiBuilder.exe"; Tasks: desktopicon
+Name: "{autodesktop}\{#AppName}"; Filename: "{app}\Shellmason.exe"; IconFilename: "{app}\Shellmason.exe"; Tasks: desktopicon
 
 [InstallDelete]
 Type: files; Name: "{autoprograms}\PowerShell GUI Command Builder\*.lnk"
 Type: files; Name: "{autodesktop}\PowerShell GUI Command Builder.lnk"
+Type: dirifempty; Name: "{autoprograms}\PowerShell GUI Command Builder"
+Type: files; Name: "{app}\PsGuiBuilder.exe"
+Type: files; Name: "{app}\PsGuiBuilder.dll"
+Type: files; Name: "{app}\PsGuiBuilder.deps.json"
+Type: files; Name: "{app}\PsGuiBuilder.runtimeconfig.json"
 
 [Code]
 procedure SeedUserCommandTree();

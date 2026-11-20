@@ -36,14 +36,17 @@ public class RepositoryPresentationTests
         Assert.Contains("Personal project by Thomas Schueler, built on personal time and equipment. See [OWNERSHIP.md](OWNERSHIP.md).", readme, StringComparison.Ordinal);
         Assert.Contains("**Personal Project — Developed on Personal Time and Equipment**", readme, StringComparison.Ordinal);
         Assert.Contains("All rights reserved to the author unless otherwise licensed.", readme, StringComparison.Ordinal);
-        Assert.Contains("Shellmason (repository: ps-gui-builder, executable: PsGuiBuilder.exe).", readme, StringComparison.Ordinal);
-        Assert.Equal(1, Count(readme, "repository: ps-gui-builder, executable: PsGuiBuilder.exe"));
+        const string naming = "The repository is [T2112/Shellmason](https://github.com/T2112/Shellmason). The program file is `Shellmason.exe`.";
+        Assert.Contains(naming, readme, StringComparison.Ordinal);
+        Assert.Equal(1, Count(readme, naming));
+        Assert.DoesNotContain("ps-gui-builder", readme, StringComparison.OrdinalIgnoreCase);
         Assert.Contains("docs/screenshots/README.md", readme, StringComparison.Ordinal);
-        Assert.Contains("https://github.com/T2112/ps-gui-builder/releases/latest", readme, StringComparison.Ordinal);
+        Assert.Contains("https://github.com/T2112/Shellmason/releases/latest", readme, StringComparison.Ordinal);
+        Assert.Contains("https://api.github.com/repos/T2112/Shellmason/releases/latest", readme, StringComparison.Ordinal);
         Assert.Contains("SmartScreen", readme, StringComparison.Ordinal);
         Assert.Contains("scripts/New-ReleaseNotes.ps1", readme, StringComparison.Ordinal);
         Assert.Contains("[CHANGELOG.md](CHANGELOG.md)", readme, StringComparison.Ordinal);
-        Assert.Contains("https://github.com/T2112/ps-gui-builder/issues", readme, StringComparison.Ordinal);
+        Assert.Contains("https://github.com/T2112/Shellmason/issues", readme, StringComparison.Ordinal);
     }
 
     [Fact]
@@ -82,6 +85,48 @@ public class RepositoryPresentationTests
         Assert.Contains("powershell", Read("docs/showcase.md"), StringComparison.Ordinal);
         Assert.Contains("command-builder", Read("docs/showcase.md"), StringComparison.Ordinal);
         Assert.Contains("InfoBeforeFile={#RepoRoot}\\OWNERSHIP.md", Read("installer/PsGuiBuilder.iss"), StringComparison.Ordinal);
+        Assert.Contains("https://github.com/T2112/Shellmason", Read("docs/showcase.md"), StringComparison.Ordinal);
+        Assert.DoesNotContain("ps-gui-builder", Read("docs/showcase.md"), StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
+    public void Repository_urls_and_the_program_file_use_shellmason()
+    {
+        var files = new[]
+        {
+            "README.md",
+            "ARCHITECTURE.md",
+            "CHANGELOG.md",
+            "SECURITY.md",
+            "docs/showcase.md",
+            "docs/screenshots/README.md",
+            ".github/ISSUE_TEMPLATE/config.yml",
+            ".github/ISSUE_TEMPLATE/bug_report.yml",
+            ".github/ISSUE_TEMPLATE/feature_request.yml",
+            ".github/workflows/ci.yml",
+            "Directory.Build.props",
+            "src/PsGuiBuilder.Core/Updates/UpdateRelease.cs",
+            "src/PsGuiBuilder/PsGuiBuilder.csproj",
+            "installer/PsGuiBuilder.iss",
+            "installer/build.ps1"
+        };
+        foreach (var relative in files)
+            Assert.DoesNotContain("ps-gui-builder", Read(relative), StringComparison.OrdinalIgnoreCase);
+
+        var props = Read("Directory.Build.props");
+        Assert.Contains("<RepositoryUrl>https://github.com/T2112/Shellmason</RepositoryUrl>", props, StringComparison.Ordinal);
+        Assert.Contains("<PackageProjectUrl>https://github.com/T2112/Shellmason</PackageProjectUrl>", props, StringComparison.Ordinal);
+        Assert.Contains("<AssemblyName>Shellmason</AssemblyName>", Read("src/PsGuiBuilder/PsGuiBuilder.csproj"), StringComparison.Ordinal);
+
+        var setup = Read("installer/PsGuiBuilder.iss");
+        Assert.Contains("OutputBaseFilename=Shellmason-Setup-{#AppVersion}", setup, StringComparison.Ordinal);
+        Assert.Contains("{app}\\Shellmason.exe", setup, StringComparison.Ordinal);
+        Assert.Contains("{app}\\PsGuiBuilder.exe", setup, StringComparison.Ordinal);
+        Assert.Contains("AppId={{E4B7C2A1-9F30-4D6E-8A12-5C7B9E0D3F48}", setup, StringComparison.Ordinal);
+
+        Assert.Equal("https://api.github.com/repos/T2112/Shellmason/releases/latest", PsGuiBuilder.Core.Updates.UpdateRelease.LatestReleaseUrl);
+        Assert.Equal("https://github.com/T2112/Shellmason/releases/latest", PsGuiBuilder.Core.Updates.UpdateRelease.ReleasesPageUrl);
+        Assert.Equal("Shellmason-Setup-0.4.0.exe", PsGuiBuilder.Core.Updates.UpdateRelease.InstallerName("0.4.0"));
     }
 
     private static int Count(string text, string value)
