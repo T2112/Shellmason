@@ -1,6 +1,14 @@
 # Changelog
 
-Versions follow the `VERSION` file. There are no git tags for these releases. Each section is the change that landed while that version was current.
+Versions follow the `VERSION` file. A `v*` tag on that version publishes the GitHub Release. Each section is what shipped in that version.
+
+## 0.4.0
+
+- The GitHub repository is [T2112/Shellmason](https://github.com/T2112/Shellmason). The README, docs, badges, issue templates, project metadata, and the in-app update check use that name.
+- The installed program file is `Shellmason.exe`. An upgrade keeps the installer id and the folder already in use, removes `PsGuiBuilder.exe`, and points the Shellmason shortcuts at `Shellmason.exe`. Open Shellmason from the Start menu after updating.
+- The release file stays `Shellmason-Setup-<version>.exe`, with a `.sha256` beside it. Shellmason 0.3.0 looks for that file name, so an installed 0.3.0 copy can download and run this update.
+- Settings stay in `%APPDATA%\Shellmason`. JSON files already in `%APPDATA%\PsGuiBuilder` are still copied when the Shellmason copy is missing. The old folder is left in place.
+- The elevated helper is still `PsGuiBuilder.ElevatedHost.exe`. `PSGUIBUILDER_SHELL` is unchanged.
 
 ## 0.3.0
 

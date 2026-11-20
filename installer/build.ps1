@@ -15,7 +15,7 @@ if (Test-Path $publish) {
     Remove-Item $publish -Recurse -Force
 }
 
-Write-Host "Publishing PsGuiBuilder $version (self-contained win-x64)"
+Write-Host "Publishing Shellmason $version (self-contained win-x64)"
 dotnet publish (Join-Path $root "src\PsGuiBuilder\PsGuiBuilder.csproj") `
     --configuration Release `
     --runtime win-x64 `
@@ -24,7 +24,7 @@ dotnet publish (Join-Path $root "src\PsGuiBuilder\PsGuiBuilder.csproj") `
     -p:DebugSymbols=false `
     -p:DebugType=None `
     --output $publish
-if ($LASTEXITCODE -ne 0) { throw "Publishing PsGuiBuilder failed." }
+if ($LASTEXITCODE -ne 0) { throw "Publishing Shellmason failed." }
 
 $hostOut = Join-Path $publish "elevated-host"
 Write-Host "Publishing PsGuiBuilder.ElevatedHost (self-contained win-x64)"
@@ -39,13 +39,14 @@ dotnet publish (Join-Path $root "src\PsGuiBuilder.ElevatedHost\PsGuiBuilder.Elev
 if ($LASTEXITCODE -ne 0) { throw "Publishing PsGuiBuilder.ElevatedHost failed." }
 
 @(
-    (Join-Path $publish "PsGuiBuilder.exe"),
+    (Join-Path $publish "Shellmason.exe"),
     (Join-Path $publish "command-tree.json"),
     (Join-Path $hostOut "PsGuiBuilder.ElevatedHost.exe")
 ) | ForEach-Object {
     if (-not (Test-Path $_)) { throw "Publish output is missing $_." }
 }
 
+# PsGuiBuilder.installed stays the marker name. Installed copies look for this file beside the executable.
 Set-Content -Path (Join-Path $publish "PsGuiBuilder.installed") -Value @"
 Personal project by Thomas Schueler.
 Developed on personal time using personal equipment.

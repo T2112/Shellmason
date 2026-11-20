@@ -79,9 +79,9 @@ public sealed class UpdateStatus
 
 public static class UpdateRelease
 {
-    public const string LatestReleaseUrl = "https://api.github.com/repos/T2112/ps-gui-builder/releases/latest";
+    public const string LatestReleaseUrl = "https://api.github.com/repos/T2112/Shellmason/releases/latest";
 
-    public const string ReleasesPageUrl = "https://github.com/T2112/ps-gui-builder/releases/latest";
+    public const string ReleasesPageUrl = "https://github.com/T2112/Shellmason/releases/latest";
 
     public const string InstallerPrefix = "Shellmason-Setup-";
 
@@ -165,7 +165,7 @@ public static class UpdateRelease
         var published = latestVersion.Published;
         var page = Text(payload, "html_url");
         if (!UpdateUrls.IsGitHub(page))
-            page = "https://github.com/T2112/ps-gui-builder/releases/tag/v" + published;
+            page = "https://github.com/T2112/Shellmason/releases/tag/v" + published;
 
         var notes = Text(payload, "body");
         var assets = Assets(payload);

@@ -14,6 +14,7 @@ public class AppDataMigrationTests
     {
         Assert.Equal("Shellmason", CommandTreeLocations.UserFolderName);
         Assert.Equal("PsGuiBuilder", CommandTreeLocations.LegacyUserFolderName);
+        Assert.Equal("PsGuiBuilder.installed", CommandTreeLocations.InstalledMarkerName);
 
         var root = Path.Combine(Path.GetTempPath(), "shellmason-migrate-" + Guid.NewGuid().ToString("N"));
         var legacy = Path.Combine(root, "PsGuiBuilder");

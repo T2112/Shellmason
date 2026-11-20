@@ -2,7 +2,7 @@
 
 These pictures are not in the repository yet. Shellmason is a Windows Presentation Foundation app, and it was not run to produce them. Do not add a mockup, a diagram, a cropped picture from another program, or an image generated to look like the window.
 
-Capture a real Shellmason window. The title bar says Shellmason. The program file is `PsGuiBuilder.exe`. The default window is 1120 by 780. Save PNG files in this folder, using the names below, then embed them in the Screenshots section of the repository README.
+Capture a real Shellmason window. The title bar says Shellmason. The program file is `Shellmason.exe`. The default window is 1120 by 780. Save PNG files in this folder, using the names below, then embed them in the Screenshots section of the repository README.
 
 Use a folder you are willing to show in public. The sample path below is `C:\Users`. If that listing would show names you do not want published, pick another folder and say which one in the commit.
 

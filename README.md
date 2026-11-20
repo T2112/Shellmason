@@ -2,14 +2,14 @@
 
 Shellmason builds a PowerShell command from cascading menus and a fill-in sentence, then runs it and shows the output in the same window.
 
-[![CI](https://img.shields.io/github/actions/workflow/status/T2112/ps-gui-builder/ci.yml?branch=main&label=CI)](https://github.com/T2112/ps-gui-builder/actions/workflows/ci.yml)
-[![Release](https://img.shields.io/github/v/release/T2112/ps-gui-builder?label=release)](https://github.com/T2112/ps-gui-builder/releases/latest)
-[![Downloads](https://img.shields.io/github/downloads/T2112/ps-gui-builder/total?label=downloads)](https://github.com/T2112/ps-gui-builder/releases)
+[![CI](https://img.shields.io/github/actions/workflow/status/T2112/Shellmason/ci.yml?branch=main&label=CI)](https://github.com/T2112/Shellmason/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/v/release/T2112/Shellmason?label=release)](https://github.com/T2112/Shellmason/releases/latest)
+[![Downloads](https://img.shields.io/github/downloads/T2112/Shellmason/total?label=downloads)](https://github.com/T2112/Shellmason/releases)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 Personal project by Thomas Schueler, built on personal time and equipment. See [OWNERSHIP.md](OWNERSHIP.md).
 
-Shellmason (repository: ps-gui-builder, executable: PsGuiBuilder.exe). The repository stays [T2112/ps-gui-builder](https://github.com/T2112/ps-gui-builder).
+The repository is [T2112/Shellmason](https://github.com/T2112/Shellmason). The program file is `Shellmason.exe`.
 
 ## What it is
 
@@ -41,15 +41,15 @@ An optional GIF of the same path can be saved as `docs/screenshots/cascade-to-ou
 
 ## Install
 
-Download the latest installer from [the GitHub releases page](https://github.com/T2112/ps-gui-builder/releases/latest). The asset is `Shellmason-Setup-<version>.exe`, with a `.sha256` file beside it. Windows 10 or later, 64-bit, is required. The installed app does not need the .NET runtime. PowerShell 7 is the default host for the commands it runs. If `pwsh` is missing, Shellmason falls back to Windows PowerShell 5.1 and says so.
+Download the latest installer from [the GitHub releases page](https://github.com/T2112/Shellmason/releases/latest). The asset is `Shellmason-Setup-<version>.exe`, with a `.sha256` file beside it. Windows 10 or later, 64-bit, is required. The installed app does not need the .NET runtime. PowerShell 7 is the default host for the commands it runs. If `pwsh` is missing, Shellmason falls back to Windows PowerShell 5.1 and says so.
 
 The installer is not Authenticode-signed. Windows SmartScreen may say that it protected your PC and that the publisher is unrecognized. That is the usual prompt for an unsigned download that Windows has not seen often. If you trust this repository, choose **More info**, then **Run anyway**. To check the file first, compare `Get-FileHash` of the `.exe` (SHA256) with the published `.sha256` file.
 
-The setup program shows [OWNERSHIP.md](OWNERSHIP.md), then [LICENSE](LICENSE). It installs a new copy to `C:\Program Files\Shellmason`, registers an uninstaller, adds a Start menu shortcut named Shellmason, and offers an optional desktop shortcut. An upgrade keeps the folder it was already installed in, because the installer id is unchanged. Publisher and copyright name Thomas Schueler, personal project.
+The setup program shows [OWNERSHIP.md](OWNERSHIP.md), then [LICENSE](LICENSE). It installs a new copy to `C:\Program Files\Shellmason`, registers an uninstaller, adds a Start menu shortcut named Shellmason, and offers an optional desktop shortcut. The program file is `Shellmason.exe`. An upgrade keeps the folder it was already installed in, because the installer id is unchanged, and it removes `PsGuiBuilder.exe` from that folder. The shortcuts the installer created then point at `Shellmason.exe`. Open Shellmason from the Start menu after updating. Publisher and copyright name Thomas Schueler, personal project.
 
 The Program Files copy of `command-tree.json` is the default. The first launch copies it to `%APPDATA%\Shellmason\command-tree.json` when that file is not already there, and uses that file from then on. If `%APPDATA%\PsGuiBuilder` already has JSON files, the first launch copies the ones that are not in the Shellmason folder yet, including `command-tree.json`, and leaves the old folder in place. Edit the Shellmason copy. An upgrade replaces the Program Files default and does not overwrite the AppData file. **Load new default commands** adds commands that are in the new default and missing from your AppData copy. It leaves entries you already have, including edits, as they are. Delete the AppData file to seed a new copy from the upgraded default. `--tree path\to\command-tree.json` overrides both. A dev build does not create the AppData file unless it is already there.
 
-On launch, and from Help > Check for updates, Shellmason asks `https://api.github.com/repos/T2112/ps-gui-builder/releases/latest` with no token. A newer published release offers to download `Shellmason-Setup-<version>.exe`, check its size and checksum, and run it. Later asks again next time. Skip this version stays quiet until a newer release. A copy started from source only points at the release page.
+On launch, and from Help > Check for updates, Shellmason asks `https://api.github.com/repos/T2112/Shellmason/releases/latest` with no token. A newer published release offers to download `Shellmason-Setup-<version>.exe`, check its size and checksum, and run it. That is the same installer file name Shellmason 0.3.0 looks for. Later asks again next time. Skip this version stays quiet until a newer release. A copy started from source only points at the release page.
 
 Uninstall leaves the AppData command tree in place.
 
@@ -89,7 +89,7 @@ The long version is [ARCHITECTURE.md](ARCHITECTURE.md). What the code does:
 ## Changelog and issues
 
 - [CHANGELOG.md](CHANGELOG.md) — what changed in each version
-- [Issues](https://github.com/T2112/ps-gui-builder/issues) — bug reports and feature requests
+- [Issues](https://github.com/T2112/Shellmason/issues) — bug reports and feature requests
 - [Security](SECURITY.md) — how to report a vulnerability
 - [Showcase copy](docs/showcase.md) — portfolio, LinkedIn, and GitHub profile text
 
@@ -103,6 +103,8 @@ Requirements:
 - [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
 - [PowerShell 7](https://learn.microsoft.com/powershell/scripting/install/installing-powershell-on-windows) (`pwsh`)
 - [Inno Setup 6](https://jrsoftware.org/isinfo.php), only if you are building the installer
+
+The source repository is [T2112/Shellmason](https://github.com/T2112/Shellmason). A clone whose `origin` URL still has the previous repository name keeps working through GitHub's redirect. Point `origin` at `https://github.com/T2112/Shellmason.git` when you want the remote URL itself to match.
 
 From the repository root on Windows:
 
